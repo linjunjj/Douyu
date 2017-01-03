@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="unitHeight" format="dimension"></attr>
+    <attr name="unitWidth" format="dimension"></attr>
+    <attr name="unitWidthScale" format="integer"></attr>
+    <attr name="unitHeightScale" format="integer"></attr>
+    <attr name="unitShadeSrc" format="reference"></attr>
+    <attr name="unitShowSrc" format="reference"></attr>
+    <attr name="needRotate" format="boolean"></attr>
+    <attr name="deviate" format="integer"></attr>
+    <declare-styleable name="DouYuView">
+        <attr name="unitHeight"></attr>
+        <attr name="unitWidth" ></attr>
+        <attr name="unitWidthScale"></attr>
+        <attr name="unitHeightScale"></attr>
+        <attr name="unitShadeSrc"></attr>
+        <attr name="unitShowSrc"></attr>
+        <attr name="needRotate"></attr>
+        <attr name="deviate"></attr>
+    </declare-styleable>
+
+
+
+
+
+
+
+
+</resources>
