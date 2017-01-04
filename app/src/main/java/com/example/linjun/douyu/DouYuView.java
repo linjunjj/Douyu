@@ -5,10 +5,12 @@ import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.widget.ImageView;
@@ -186,16 +188,53 @@ public  void setUnitMoveDistance(float distance){
 
     }
 
-    private Bitmap rotateBitmap(int rotate, Bitmap showB) {
+    private Bitmap rotateBitmap(int degree, Bitmap bitmap) {
+        Matrix matrix=new Matrix();
+        Bitmap bm=Bitmap.createBitmap(bitmap,0,0,bitmap.getWidth(),bitmap.getHeight(),matrix,true);
+        return  bm;
+
     }
 
-    private Bitmap handleBitmap(Bitmap mShadeBp, int unitWidth, int unitHeight) {
+    private Bitmap handleBitmap(Bitmap bp, float x, float y) {
+      int w=bp.getWidth();
+        int h=bp.getHeight();
+        float sx=x/w;
+        float sy=y/h;
+        Matrix matrix=new Matrix();
+        matrix.postScale(sx,sy);
+        Bitmap resizeBmp=Bitmap.createBitmap(bp,0,0,w,h,matrix,true);
+        return  resizeBmp;
+
+
     }
 
     private Bitmap getBaseBitmap() {
+        Bitmap b=drawableToBitamp(getDrawable());
+        float scaleX=1.0f;
+        float scaleY=1.0f;
+        scaleX=getWidth()*1.0f/b.getWidth();
+        scaleY=getHeight()*1.0f/b.getHeight();
+        Matrix matrix=new Matrix();
+        matrix.setScale(scaleX,scaleY);
+        Bitmap bd=Bitmap.createBitmap(b,0,0,b.getWidth(),b.getHeight(),matrix,true);
+        return  bd;
     }
 
-    private Bitmap drawableToBitamp(Drawable showBp) {
+    private Bitmap drawableToBitamp(Drawable drawable) {
+         if (null==drawable){
+            return  null;
+         }
+        if (drawable instanceof BitmapDrawable){
+           BitmapDrawable bd= (BitmapDrawable) drawable;
+            return  bd.getBitmap();
+        }
+        int w=drawable.getIntrinsicWidth();
+        int h=drawable.getIntrinsicHeight();
+        Bitmap bitmap=Bitmap.createBitmap(w,h, Bitmap.Config.ARGB_8888);
+        Canvas canvas=new Canvas(bitmap);
+        drawable.setBounds(0,0,w,h);
+        drawable.draw(canvas);
+        return  bitmap;
     }
 
 
